@@ -55,7 +55,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!extension_loaded('pdo_sqlite')) {
             $this->markTestSkipped('Pdo_Sqlite extension is not loaded');
@@ -78,7 +78,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->_adapter = null;
         parent::tearDown();
@@ -136,7 +136,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
             $this->_adapter->setRowCount($this->_db->select()->from('test'));
         } catch (Exception $e) {
             $this->assertTrue($e instanceof Zend_Paginator_Exception);
-            $this->assertContains('Row count column not found', $e->getMessage());
+            $this->assertStringContainsString('Row count column not found', $e->getMessage());
         }
 
         try {
