@@ -14,13 +14,12 @@
         "diablomedia/zendframework1-exception": "^1.0.0",
         "diablomedia/zendframework1-config": "^1.0.0 || ^2.0.0",
         "diablomedia/zendframework1-loader": "^1.0.0",
-        "diablomedia/zendframework1-json": "^1.0.0",
+        "diablomedia/zendframework1-json": "^1.0.6",
         "diablomedia/zendframework1-cache": "^1.0.0",
         "diablomedia/zendframework1-controller": "^1.0.0",
         "diablomedia/zendframework1-db": "^1.0.0",
         "diablomedia/zendframework1-filter": "^1.0.0",
-        "diablomedia/zendframework1-view": "^1.0.0",
-        "diablomedia/zendframework1-xml": "^1.0.5"
+        "diablomedia/zendframework1-view": "^1.0.4"
     },
     "autoload": {
         "psr-0": {
