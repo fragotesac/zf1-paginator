@@ -62,12 +62,17 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      */
     public function serialize()
     {
-        return serialize(array(
+        return serialize($this->__serialize());
+    }
+
+    public function __serialize(): array
+    {
+        return array(
             'it'     => $this->getInnerIterator(),
             'offset' => $this->_offset,
             'count'  => $this->_count,
             'pos'    => $this->getPosition(),
-        ));
+        );
     }
 
     /**
@@ -75,9 +80,13 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      */
     public function unserialize($data)
     {
-        $dataArr = unserialize($data);
-        $this->__construct($dataArr['it'], $dataArr['offset'], $dataArr['count']);
-        $this->seek($dataArr['pos'] + $dataArr['offset']);
+        $this->__unserialize(unserialize($data));
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->__construct($data['it'], $data['offset'], $data['count']);
+        $this->seek($data['pos'] + $data['offset']);
     }
 
     /**
@@ -86,12 +95,13 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      * @param int $offset
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $currentOffset = $this->key();
         $this->seek($offset);
         $current = $this->current();
-        $this->seek($currentOffset);
+        $this->seek($currentOffset ?? 0);
         return $current;
     }
 
@@ -102,6 +112,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      * @param int $offset
      * @param mixed $value
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
     }
@@ -111,6 +122,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      *
      * @param int $offset
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         if ($offset > 0 && $offset < $this->_count) {
@@ -136,6 +148,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      *
      * @param int $offset
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
     }

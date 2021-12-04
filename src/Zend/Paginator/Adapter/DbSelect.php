@@ -71,7 +71,7 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
     public function __construct(Zend_Db_Select $select)
     {
         $this->_select          = $select;
-        $this->_cacheIdentifier = md5($select->assemble());
+        $this->_cacheIdentifier = md5($select->assemble() ?? '');
     }
 
     /**
@@ -150,6 +150,7 @@ class Zend_Paginator_Adapter_DbSelect implements Zend_Paginator_Adapter_Interfac
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         if ($this->_rowCount === null) {
