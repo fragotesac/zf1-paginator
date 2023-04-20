@@ -135,7 +135,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
         try {
             $this->_adapter->setRowCount($this->_db->select()->from('test'));
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertStringContainsString('Row count column not found', $e->getMessage());
         }
 
@@ -146,7 +146,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
 
             $this->_adapter->setRowCount($query);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertEquals('Row count column not found', $e->getMessage());
         }
     }
@@ -173,7 +173,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit\Framework\TestCase
         try {
             $this->_adapter->setRowCount('invalid');
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertEquals('Invalid row count', $e->getMessage());
         }
     }

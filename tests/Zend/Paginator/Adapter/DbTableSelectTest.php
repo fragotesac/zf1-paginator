@@ -40,7 +40,7 @@ class Zend_Paginator_Adapter_DbTableSelectTest extends Zend_Paginator_Adapter_Db
         $adapter = new Zend_Paginator_Adapter_DbTableSelect($query);
         $items   = $adapter->getItems(0, 10);
 
-        $this->assertTrue($items instanceof Zend_Db_Table_Rowset);
+        $this->assertInstanceOf(Zend_Db_Table_Rowset::class, $items);
     }
 
     public function testToJsonWithRowset()

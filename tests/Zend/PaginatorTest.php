@@ -57,6 +57,10 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
 
     protected $_adapter = null;
 
+    protected $_dbConn;
+
+    protected $cacheDir;
+
     protected function setUp(): void
     {
         if (!extension_loaded('pdo_sqlite')) {
@@ -180,7 +184,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
         try {
             $paginator = Zend_Paginator::factory(new stdClass());
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertStringContainsString('stdClass', $e->getMessage());
         }
     }
@@ -190,7 +194,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
         try {
             $paginator = Zend_Paginator::factory('invalid argument');
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertStringContainsString('string', $e->getMessage());
         }
     }
@@ -484,7 +488,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
     public function testGetsCurrentItems()
     {
         $items = $this->_paginator->getCurrentItems();
-        $this->assertTrue($items instanceof ArrayIterator);
+        $this->assertInstanceOf(ArrayIterator::class, $items);
 
         $count = 0;
 
@@ -498,7 +502,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
     public function testGetsIterator()
     {
         $items = $this->_paginator->getIterator();
-        $this->assertTrue($items instanceof ArrayIterator);
+        $this->assertInstanceOf(ArrayIterator::class, $items);
 
         $count = 0;
 
@@ -543,7 +547,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
         try {
             $paginator->getItem(1);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertStringContainsString('Page 1 does not exist', $e->getMessage());
         }
     }
@@ -553,7 +557,7 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
         try {
             $this->_paginator->getItem(10, 11);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertStringContainsString('Page 11 does not contain item number 10', $e->getMessage());
         }
     }

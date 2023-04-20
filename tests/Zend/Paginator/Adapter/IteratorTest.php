@@ -36,6 +36,8 @@ class Zend_Paginator_Adapter_IteratorTest extends PHPUnit\Framework\TestCase
      */
     private $_adapter;
 
+    protected $_paginator;
+
     /**
      * Prepares the environment before running a test.
      */
@@ -57,7 +59,7 @@ class Zend_Paginator_Adapter_IteratorTest extends PHPUnit\Framework\TestCase
     public function testGetsItemsAtOffsetZero()
     {
         $actual = $this->_adapter->getItems(0, 10);
-        $this->assertTrue($actual instanceof LimitIterator);
+        $this->assertInstanceOf(LimitIterator::class, $actual);
 
         $i = 1;
         foreach ($actual as $item) {
@@ -69,7 +71,7 @@ class Zend_Paginator_Adapter_IteratorTest extends PHPUnit\Framework\TestCase
     public function testGetsItemsAtOffsetTen()
     {
         $actual = $this->_adapter->getItems(10, 10);
-        $this->assertTrue($actual instanceof LimitIterator);
+        $this->assertInstanceOf(LimitIterator::class, $actual);
 
         $i = 11;
         foreach ($actual as $item) {
@@ -90,7 +92,7 @@ class Zend_Paginator_Adapter_IteratorTest extends PHPUnit\Framework\TestCase
         try {
             new Zend_Paginator_Adapter_Iterator($iterator);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Paginator_Exception);
+            $this->assertInstanceOf(Zend_Paginator_Exception::class, $e);
             $this->assertEquals('Iterator must implement Countable', $e->getMessage());
         }
     }
