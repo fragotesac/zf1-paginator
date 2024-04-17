@@ -962,13 +962,13 @@ class Zend_PaginatorTest extends PHPUnit\Framework\TestCase
         $expectedCacheId = md5($paginator->getCacheInternalId() . '_itemCount');
 
         $cache = $this->getMockBuilder('Zend_Cache_Core')
-            ->setMethods(array('load'))
+            ->onlyMethods(array('load'))
             ->disableOriginalConstructor()
             ->getMock();
         $cache->expects($this->once())
                ->method('load')
                ->with($expectedCacheId)
-               ->will($this->returnValue(6989));
+               ->willReturn(6989);
 
         $paginator->setCacheEnabled(true)
                   ->setCache($cache);
